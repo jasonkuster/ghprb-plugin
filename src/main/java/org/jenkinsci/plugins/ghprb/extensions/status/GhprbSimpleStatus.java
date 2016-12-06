@@ -206,10 +206,11 @@ public class GhprbSimpleStatus extends GhprbExtension implements GhprbCommitStat
             sb.append("Build finished.");
         } else {
             for (GhprbBuildResultMessage buildStatus : completedStatus) {
-                sb.append(buildStatus.postBuildComment(build, listener));
-            }
-            if (StringUtils.equals(sb.toString(), "--none--")) {
-                return;
+                String cmt = buildStatus.postBuildComment(build, listener);
+                if (StringUtils.equals(cmt, "--none--")) {
+                    return;
+                }
+                sb.append(cmt);
             }
         }
 
